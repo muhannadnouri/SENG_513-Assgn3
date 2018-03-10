@@ -1,0 +1,58 @@
+
+
+
+body, html {
+    width: 100%;
+    height: 100%;
+}
+
+/*________________________________________________*/
+main, .row, .col-md-4, .col-md-8 {
+    height: 100%;
+
+}
+
+.col-md-4 {
+    font-family: 'Questrial', 'Play', 'Montserrat', 'Acme', sans-serif;
+}
+
+/*________________________________________________*/
+ul#chat {
+    position: absolute;
+    bottom: 50px;
+    overflow-y: auto;
+    overflow-x: auto;
+    max-height: calc(100% - 50px);
+    width: 90%;
+}
+
+
+/*________________________________________________*/
+#icon {
+    width: 30%;
+}
+
+#message {
+    width: 80%;
+    vertical-align: middle;
+
+}
+
+
+/*________________________________________________*/
+#send-button {
+    width: 10%;
+    vertical-align: middle;
+}
+
+#chat-box {
+    position: absolute;
+    bottom: 1%;
+    padding-bottom: auto;
+    width: 100%;
+}
+
+
+/*________________________________________________*/
+
+
