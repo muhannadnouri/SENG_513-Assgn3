@@ -76,57 +76,58 @@ io.on('connection', function(socket) {
     // GENERATE random nickname for the user!
     nickname = getRandomName();
 
+    let user = {
+        id: socket.id,
+        username: nickname
+    };
+
     // BROADCAST that a user has joined the channel!
-    socket.broadcast.emit('notice', nickname + ' has joined the room');
+    socket.broadcast.emit('notice', user.username + ' has joined the room');
 
     // ADD the random generated nickname to a list of names
     nicknameList.push(nickname);
 
     socket.on('new user', function() {
         // PRINT the list of users currently in the channel!
-        if (nicknameList.size != 0){
+        if (nicknameList.length != 0){
             io.emit('updatelist', nicknameList);
         }
     });
 
-});
-
-io.on('connection', function(socket){
-
     socket.on('chat message', function(msg){
-        io.emit('chat message', nickname + " " + getSimpleCurrentTime() + ": " + msg);
+        io.emit('chat message', user.username + " " + getSimpleCurrentTime() + ": " + msg);
     });
 
     // PRINT the list of users currently in the channel!
-    if (nicknameList.size != 0){
+    if (nicknameList.length != 0){
         io.emit('updatelist', nicknameList);
     }
 
-});
 
-
-// Code for when a user connects OR disconnects
-io.on('connection', function(socket){
+    // Code for when a user connects OR disconnects
     console.log('User connected');
 
     socket.on('disconnect', function(){
 
         // BROADCAST that a user has left the channel!
-        socket.broadcast.emit('notice', nickname + ' has left the room');
+        socket.broadcast.emit('notice', user.username + ' has left the room');
 
-        var i = nicknameList.indexOf(nickname);
+        var i = nicknameList.indexOf(user.username);
         if(i != -1) {
             nicknameList.splice(i, 1);
         }
 
         // PRINT the list of users currently in the channel!
-        if (nicknameList.size != 0){
+        if (nicknameList.length != 0){
             io.emit('updatelist', nicknameList);
         }
 
         console.log('User disconnected');
     });
+
 });
+
+
 
 /* ------------------------- LOCAL HOST/SERVER ------------------------- */
 http.listen(3000, function(){
